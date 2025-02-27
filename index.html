@@ -1,92 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TaskNova</title>
-    <!-- Puedes enlazar un archivo CSS externo o definir estilos en línea -->
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 20px;
-      }
-      header {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      header h1 {
-        margin: 0;
-        font-size: 2.5rem;
-        color: #333;
-      }
-      header p {
-        font-size: 1.1rem;
-        color: #666;
-      }
-      main {
-        max-width: 800px;
-        margin: 0 auto;
-      }
-      #task-container {
-        margin-top: 20px;
-      }
-      .task-item {
-        background-color: #fff;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-      }
-      form {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-      }
-      input[type="text"] {
-        width: 60%;
-        padding: 10px;
-        margin-right: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-      }
-      button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        border: none;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #0056b3;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>TaskNova</h1>
-      <p>Gestión de tareas en tiempo real con Firebase y GitHub Pages</p>
-    </header>
-    <main>
-      <div id="task-container">
-        <!-- Aquí se mostrarán las tareas -->
-      </div>
-      <form id="task-form">
-        <input
-          type="text"
-          id="task-input"
-          placeholder="Ingresa una nueva tarea"
-          required
-        />
-        <button type="submit">Agregar Tarea</button>
-      </form>
-    </main>
-    <!-- Firebase: Usamos las versiones compat para facilitar la integración -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <!-- Nuestro script personalizado que inicializa Firebase y maneja las tareas -->
-    <script src="app.js"></script>
-  </body>
-	</html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNova - Lista de Tareas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>TaskNova</h1>
+        <form id="task-form">
+            <input type="text" id="task-input" placeholder="Escribe una nueva tarea" required>
+            <button type="submit">Agregar Tarea</button>
+        </form>
+
+        <div id="task-container">
+            <!-- Las tareas aparecerán aquí -->
+        </div>
+    </div>
+</body>
+</html>

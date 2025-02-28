@@ -1,3 +1,8 @@
+// Importar módulos de Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc } 
+from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDZD4cQ-m1cwKPxAnCeMtURZDFRpqBZ56w",
   authDomain: "tasknovadevproject.firebaseapp.com",

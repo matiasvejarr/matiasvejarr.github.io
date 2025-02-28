@@ -23,12 +23,21 @@ const db = getFirestore(app);
 export function login() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-        .then(result => console.log("Sesión iniciada:", result.user))
-        .catch(error => alert("Error en inicio de sesión: " + error.message));
+        .then(result => {
+            console.log("Sesión iniciada correctamente", result.user);
+        })
+        .catch(error => {
+            console.error("Error en inicio de sesión: ", error.message);
+            alert("Error en inicio de sesión: " + error.message);
+        });
 }
 
 export function logout() {
-    signOut(auth).then(() => console.log("Sesión cerrada."));
+    signOut(auth).then(() => {
+        console.log("Sesión cerrada.");
+    }).catch(error => {
+        console.error("Error al cerrar sesión: ", error.message);
+    });
 }
 
 // Función para cargar tareas
@@ -44,6 +53,8 @@ export function loadTasks(userId) {
             li.innerHTML = `<span>${task.text}</span> <button onclick="deleteTask('${doc.id}')">❌</button>`;
             taskList.appendChild(li);
         });
+    }).catch(error => {
+        console.error("Error al cargar tareas: ", error.message);
     });
 }
 
@@ -57,6 +68,8 @@ export function addTask(taskText) {
         timestamp: new Date()
     }).then(() => {
         loadTasks(user.uid); // Recargar tareas después de agregar
+    }).catch(error => {
+        console.error("Error al agregar tarea: ", error.message);
     });
 }
 
@@ -67,5 +80,24 @@ export function deleteTask(taskId) {
         if (user) {
             loadTasks(user.uid);  // Recargar tareas después de eliminar
         }
+    }).catch(error => {
+        console.error("Error al eliminar tarea: ", error.message);
     });
 }
+
+// Verificar el estado de autenticación al cargar la página
+onAuthStateChanged(auth, user => {
+    console.log("Estado de autenticación cambiado", user);
+    if (user) {
+        document.getElementById('userInfo').innerText = `Bienvenido, ${user.displayName}`;
+        document.getElementById('loginBtn').style.display = 'none';
+        document.getElementById('logoutBtn').style.display = 'block';
+        document.getElementById('tasksContainer').style.display = 'block';
+        loadTasks(user.uid);
+    } else {
+        document.getElementById('userInfo').innerText = "";
+        document.getElementById('loginBtn').style.display = 'block';
+        document.getElementById('logoutBtn').style.display = 'none';
+        document.getElementById('tasksContainer').style.display = 'none';
+    }
+});

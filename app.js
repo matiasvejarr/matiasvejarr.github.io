@@ -1,4 +1,3 @@
-// Importaciones de Firebase
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
 import { getFirestore, collection, addDoc, getDocs, query, where, deleteDoc, doc } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
@@ -20,74 +19,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // Funciones de inicio de sesión
-export function login() {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-        .then(result => {
-            console.log("Sesión iniciada correctamente", result.user);
-        })
-        .catch(error => {
-            console.error("Error en inicio de sesión: ", error.message);
-            alert("Error en inicio de sesión: " + error.message);
-        });
-}
-
-export function logout() {
-    signOut(auth).then(() => {
-        console.log("Sesión cerrada.");
-    }).catch(error => {
-        console.error("Error al cerrar sesión: ", error.message);
-    });
-}
-
-// Función para cargar tareas
-export function loadTasks(userId) {
-    const taskList = document.getElementById('taskList');
-    const tasksRef = query(collection(db, 'tasks'), where('userId', '==', userId));
-
-    getDocs(tasksRef).then(snapshot => {
-        taskList.innerHTML = ""; // Limpiar tareas anteriores
-        snapshot.forEach(doc => {
-            const task = doc.data();
-            const li = document.createElement('li');
-            li.innerHTML = `<span>${task.text}</span> <button onclick="deleteTask('${doc.id}')">❌</button>`;
-            taskList.appendChild(li);
-        });
-    }).catch(error => {
-        console.error("Error al cargar tareas: ", error.message);
-    });
-}
-
-// Función para agregar tareas
-export function addTask(taskText) {
-    const user = auth.currentUser;
-    addDoc(collection(db, 'tasks'), {
-        text: taskText,
-        completed: false,
-        userId: user.uid,
-        timestamp: new Date()
-    }).then(() => {
-        loadTasks(user.uid); // Recargar tareas después de agregar
-    }).catch(error => {
-        console.error("Error al agregar tarea: ", error.message);
-    });
-}
-
-// Función para eliminar tareas
-export function deleteTask(taskId) {
-    deleteDoc(doc(db, 'tasks', taskId)).then(() => {
-        const user = auth.currentUser;
-        if (user) {
-            loadTasks(user.uid);  // Recargar tareas después de eliminar
-        }
-    }).catch(error => {
-        console.error("Error al eliminar tarea: ", error.message);
-    });
-}
-
-// Verificar el estado de autenticación al cargar la página
 onAuthStateChanged(auth, user => {
-    console.log("Estado de autenticación cambiado", user);
     if (user) {
         document.getElementById('userInfo').innerText = `Bienvenido, ${user.displayName}`;
         document.getElementById('loginBtn').style.display = 'none';
@@ -101,3 +33,57 @@ onAuthStateChanged(auth, user => {
         document.getElementById('tasksContainer').style.display = 'none';
     }
 });
+
+document.getElementById('loginBtn').addEventListener('click', () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+        .then(result => console.log("Sesión iniciada:", result.user))
+        .catch(error => alert("Error en inicio de sesión: " + error.message));
+});
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+    signOut(auth).then(() => console.log("Sesión cerrada."));
+});
+
+// Función para cargar tareas
+function loadTasks(userId) {
+    const taskList = document.getElementById('taskList');
+    const tasksRef = query(collection(db, 'tasks'), where('userId', '==', userId));
+
+    getDocs(tasksRef).then(snapshot => {
+        taskList.innerHTML = ""; // Limpiar tareas anteriores
+        snapshot.forEach(doc => {
+            const task = doc.data();
+            const li = document.createElement('li');
+            li.innerHTML = `<span>${task.text}</span> <button onclick="deleteTask('${doc.id}')">❌</button>`;
+            taskList.appendChild(li);
+        });
+    });
+}
+
+// Función para agregar tareas
+document.getElementById('addTaskBtn').addEventListener('click', () => {
+    const taskInput = document.getElementById('taskInput');
+    const taskText = taskInput.value.trim();
+    const user = auth.currentUser;
+
+    if (taskText && user) {
+        addDoc(collection(db, 'tasks'), {
+            text: taskText,
+            completed: false,
+            userId: user.uid,
+            timestamp: new Date()
+        }).then(() => {
+            taskInput.value = "";
+            loadTasks(user.uid);
+        });
+    }
+});
+
+// Función para eliminar tareas
+function deleteTask(taskId) {
+    deleteDoc(doc(db, 'tasks', taskId)).then(() => {
+        const user = auth.currentUser;
+        if (user) loadTasks(user.uid);
+    });
+}

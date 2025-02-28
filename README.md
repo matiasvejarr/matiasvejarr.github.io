@@ -39,7 +39,7 @@ Descripción breve del proyecto: ¿Qué hace el proyecto? ¿Qué tecnologías us
 ## 📞 Contacto
 
 - **Email**: matiasvejar@example.com
-- **LinkedIn**: [matias-vejar](https://www.linkedin.com/in/matias-vejar/)
+- **LinkedIn**: [matias-vejar](https://www.linkedin.com/in/matias-v%C3%A9jar-reyes-765b49162/)
 - **Twitter**: [@matiasvejarr](https://twitter.com/matiasvejarr)
 
 ---

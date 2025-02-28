@@ -1,10 +1,11 @@
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_AUTH_DOMAIN",
-    projectId: "TU_PROJECT_ID",
-    storageBucket: "TU_STORAGE_BUCKET",
-    messagingSenderId: "TU_MESSAGING_SENDER_ID",
-    appId: "TU_APP_ID"
+    apiKey: "AIzaSyDZD4cQ-m1cwKPxAnCeMtURZDFRpqBZ56w",
+    authDomain: "tasknovadevproject.firebaseapp.com",
+    projectId: "tasknovadevproject",
+    storageBucket: "tasknovadevproject.firebasestorage.app",
+    messagingSenderId: "1009698468318",
+    appId: "1:1009698468318:web:f4b509895eb5082f19ad4f",
+    measurementId: "G-0Q7NVETN3E"
 };
 
 firebase.initializeApp(firebaseConfig);

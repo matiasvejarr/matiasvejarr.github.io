@@ -6,9 +6,6 @@ import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signO
 const db = getFirestore();
 const auth = getAuth();
 
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
 const firebaseConfig = {
     apiKey: "AIzaSyDZD4cQ-m1cwKPxAnCeMtURZDFRpqBZ56w",
     authDomain: "tasknovadevproject.firebaseapp.com",

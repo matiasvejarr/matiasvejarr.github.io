@@ -1,3 +1,11 @@
+// Importar los módulos necesarios de Firebase (v9 modular)
+import { getFirestore, collection, addDoc, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+
+// Inicializar Firebase (esto debería estar en tu archivo firebase-config.js)
+const db = getFirestore();
+const auth = getAuth();
+
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 

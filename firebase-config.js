@@ -1,3 +1,6 @@
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
 const firebaseConfig = {
     apiKey: "AIzaSyDZD4cQ-m1cwKPxAnCeMtURZDFRpqBZ56w",
     authDomain: "tasknovadevproject.firebaseapp.com",
@@ -9,3 +12,4 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);

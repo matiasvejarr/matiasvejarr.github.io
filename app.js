@@ -64,10 +64,16 @@ function loadTasks(userId) {
     });
 }
 
+// Función para eliminar tareas
 function deleteTask(taskId) {
-    deleteDoc(doc(db, 'tasks', taskId))
-        .then(() => {
-            const user = auth.currentUser;
-            if (user) loadTasks(user.uid);
-        });
+    const taskRef = doc(db, "tasks", taskId);  // Referencia del documento en Firestore
+    deleteDoc(taskRef).then(() => {
+        console.log("Tarea eliminada exitosamente");
+        const user = auth.currentUser;
+        if (user) {
+            loadTasks(user.uid);  // Vuelve a cargar las tareas después de eliminarla
+        }
+    }).catch(error => {
+        console.error("Error al eliminar tarea: ", error);
+    });
 }

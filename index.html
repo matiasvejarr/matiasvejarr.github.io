@@ -3,21 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskNova - Lista de Tareas</title>
-    <link rel="stylesheet" href="styles.css">
-    <script type="module" src="app.js" defer></script>
+    <title>TaskNova - Gestión de Tareas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script defer src="app.js"></script>
 </head>
-<body>
-    <div class="container">
-        <h1>TaskNova</h1>
-        <form id="task-form">
-            <input type="text" id="task-input" placeholder="Escribe una nueva tarea" required>
-            <button type="submit">Agregar Tarea</button>
-        </form>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-4">TaskNova 🚀</h1>
 
-        <div id="task-container">
-            <!-- Las tareas aparecerán aquí -->
+        <!-- Botón de autenticación -->
+        <div class="flex justify-center mb-4">
+            <button id="login-btn" class="bg-blue-500 text-white px-4 py-2 rounded">Iniciar sesión con Google</button>
+            <button id="logout-btn" class="hidden bg-red-500 text-white px-4 py-2 rounded">Cerrar sesión</button>
         </div>
+
+        <!-- Formulario para agregar tareas -->
+        <div class="bg-white p-4 rounded shadow-md mb-4 dark:bg-gray-800">
+            <input type="text" id="taskInput" class="w-full p-2 border rounded" placeholder="Nueva tarea...">
+            <input type="date" id="taskDate" class="w-full p-2 border rounded mt-2">
+            <select id="taskPriority" class="w-full p-2 border rounded mt-2">
+                <option value="alta">Alta</option>
+                <option value="media">Media</option>
+                <option value="baja">Baja</option>
+            </select>
+            <button id="addTask" class="bg-green-500 text-white px-4 py-2 rounded w-full mt-2">Agregar Tarea</button>
+        </div>
+
+        <!-- Lista de tareas -->
+        <div id="tasksContainer" class="space-y-2"></div>
     </div>
 </body>
 </html>

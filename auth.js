@@ -1,10 +1,11 @@
 firebase.auth().onAuthStateChanged(user => {
+    console.log('Estado de la sesión:', user); // Esto ayuda a depurar si la sesión se actualiza correctamente
     if (user) {
         document.getElementById('userInfo').innerText = `Bienvenido, ${user.displayName}`;
         document.getElementById('loginBtn').style.display = 'none';
         document.getElementById('logoutBtn').style.display = 'block';
         document.getElementById('tasksContainer').style.display = 'block';
-        loadTasks(user.uid);
+        loadTasks(user.uid); // Cargar tareas desde Firestore para el usuario
     } else {
         document.getElementById('userInfo').innerText = "";
         document.getElementById('loginBtn').style.display = 'block';

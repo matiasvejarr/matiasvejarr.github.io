@@ -6,9 +6,6 @@ import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signO
 const db = getFirestore();
 const auth = getAuth();
 
-
-const db = firebase.firestore();
-
 document.getElementById('addTaskBtn').addEventListener('click', () => {
     const taskInput = document.getElementById('taskInput');
     const taskText = taskInput.value.trim();

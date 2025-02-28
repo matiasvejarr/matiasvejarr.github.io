@@ -1,11 +1,9 @@
-// Importar los módulos necesarios de Firebase (v9 modular)
-import { getFirestore, collection, addDoc, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
-import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+// firebase-config.js
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+import { getAuth, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
 
-// Inicializar Firebase (esto debería estar en tu archivo firebase-config.js)
-const db = getFirestore();
-const auth = getAuth();
-
+// Tu configuración de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyDZD4cQ-m1cwKPxAnCeMtURZDFRpqBZ56w",
     authDomain: "tasknovadevproject.firebaseapp.com",
@@ -16,5 +14,10 @@ const firebaseConfig = {
     measurementId: "G-0Q7NVETN3E"
 };
 
-firebase.initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);  // Esto es necesario para inicializar la app
+
+// Exportar los servicios de Firebase para usarlos en otros archivos
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const provider = new GoogleAuthProvider();

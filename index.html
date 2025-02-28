@@ -29,6 +29,7 @@
 
         // Manejo del inicio de sesión
         document.getElementById('loginBtn').addEventListener('click', () => {
+            console.log("Intentando iniciar sesión...");
             login();
         });
 
@@ -45,22 +46,6 @@
 
             if (taskText && user) {
                 addTask(taskText);
-            }
-        });
-
-        // Mostrar tareas al inicio
-        onAuthStateChanged(auth, user => {
-            if (user) {
-                document.getElementById('userInfo').innerText = `Bienvenido, ${user.displayName}`;
-                document.getElementById('loginBtn').style.display = 'none';
-                document.getElementById('logoutBtn').style.display = 'block';
-                document.getElementById('tasksContainer').style.display = 'block';
-                loadTasks(user.uid);
-            } else {
-                document.getElementById('userInfo').innerText = "";
-                document.getElementById('loginBtn').style.display = 'block';
-                document.getElementById('logoutBtn').style.display = 'none';
-                document.getElementById('tasksContainer').style.display = 'none';
             }
         });
     </script>

@@ -1,12 +1,27 @@
 // Importar los módulos necesarios de Firebase (v9 modular)
-import { getFirestore, collection, addDoc, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
 import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
 
-// Inicializar Firebase (esto debería estar en tu archivo firebase-config.js)
-const db = getFirestore();
-const auth = getAuth();
+// Inicializar Firebase (debe estar inicializado antes de usarlo)
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 
-firebase.auth().onAuthStateChanged(user => {
+const firebaseConfig = {
+    apiKey: "AIzaSyDZD4cQ-m1cwKPxAnCeMtURZDFRpqBZ56w",
+    authDomain: "tasknovadevproject.firebaseapp.com",
+    projectId: "tasknovadevproject",
+    storageBucket: "tasknovadevproject.firebasestorage.app",
+    messagingSenderId: "1009698468318",
+    appId: "1:1009698468318:web:f4b509895eb5082f19ad4f",
+    measurementId: "G-0Q7NVETN3E"
+};
+
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+
+// Obtener la instancia de autenticación
+const auth = getAuth(app);
+
+// Escuchar el estado de autenticación
+onAuthStateChanged(auth, user => {
     console.log('Estado de la sesión:', user); // Esto ayuda a depurar si la sesión se actualiza correctamente
     if (user) {
         document.getElementById('userInfo').innerText = `Bienvenido, ${user.displayName}`;
@@ -22,13 +37,15 @@ firebase.auth().onAuthStateChanged(user => {
     }
 });
 
+// Iniciar sesión con Google
 document.getElementById('loginBtn').addEventListener('click', () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
         .then(result => console.log("Sesión iniciada:", result.user))
         .catch(error => alert("Error en inicio de sesión: " + error.message));
 });
 
+// Cerrar sesión
 document.getElementById('logoutBtn').addEventListener('click', () => {
-    firebase.auth().signOut().then(() => console.log("Sesión cerrada."));
+    signOut(auth).then(() => console.log("Sesión cerrada."));
 });

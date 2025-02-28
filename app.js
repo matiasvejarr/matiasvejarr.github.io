@@ -87,3 +87,6 @@ function deleteTask(taskId) {
         if (user) loadTasks(user.uid);
     });
 }
+
+// Hacer la función `deleteTask` accesible globalmente
+window.deleteTask = deleteTask;  // Esto asegura que la función esté disponible globalmente.

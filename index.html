@@ -21,33 +21,7 @@
         </div>
     </div>
 
-    <!-- Importar el archivo app.js -->
+    <!-- Scripts de Firebase -->
     <script type="module" src="app.js"></script>
-
-    <script type="module">
-        import { login, logout, loadTasks, addTask, deleteTask } from './app.js';
-
-        // Manejo del inicio de sesión
-        document.getElementById('loginBtn').addEventListener('click', () => {
-            console.log("Intentando iniciar sesión...");
-            login();
-        });
-
-        // Manejo del cierre de sesión
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            logout();
-        });
-
-        // Manejo del agregar tarea
-        document.getElementById('addTaskBtn').addEventListener('click', () => {
-            const taskInput = document.getElementById('taskInput');
-            const taskText = taskInput.value.trim();
-            const user = auth.currentUser;
-
-            if (taskText && user) {
-                addTask(taskText);
-            }
-        });
-    </script>
 </body>
 </html>
